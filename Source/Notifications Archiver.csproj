@@ -56,6 +56,12 @@
       <HintPath>RimWorldLinux_Data\Managed\UnityEngine.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Newtonsoft.Json.Linq">
+      <HintPath>Newtonsoft.Json.9.0.1/lib/net20/Newtonsoft.Json.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <PackageReference Include="SlackAPI" />
+    <PackageReference Include="Newtonsoft.Json" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Miscellaneous\Enums.cs" />

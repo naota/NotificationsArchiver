@@ -15,6 +15,12 @@ namespace Notifications_Archiver
 
 		public static SettingHandle<bool> ShowPrompts;
 
+		public static SettingHandle<bool> PostSlack;
+
+		public static SettingHandle<string> SlackURL;
+
+		public static SettingHandle<string> SlackChannel;
+
 		public static Archiver GetArchiver;
 
 		private bool DrawClearArchivesButton(Rect rect)
@@ -66,6 +72,10 @@ namespace Notifications_Archiver
 			UseSounds = this.Settings.GetHandle("UseSounds", "Archiver_UseSounds".CachedTranslation(), "Archiver_Tooltip_UseSounds".CachedTranslation(), true);
 
 			ShowPrompts = this.Settings.GetHandle("ShowPrompts", "Archiver_ShowPrompts".CachedTranslation(), "Archiver_Tooltip_ShowPrompts".CachedTranslation(), true);
+
+			PostSlack = this.Settings.GetHandle("PostSlack", "Archiver_PostSlack".CachedTranslation(), "Archiver_Tooltip_PostSlack".CachedTranslation(), false);
+			SlackURL = this.Settings.GetHandle("SlackURL", "Archiver_SlackURL".CachedTranslation(), "Archiver_Tooltip_SlackURL".CachedTranslation(), "");
+			SlackChannel = this.Settings.GetHandle("SlackChannel", "Archiver_SlackChannel".CachedTranslation(), "Archiver_Tooltip_SlackChannel".CachedTranslation(), "");
 		}
 
 		public override void WorldLoaded()

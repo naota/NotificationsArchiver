@@ -1,5 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net;
+using System.Net.Security;
+using System.Security.Cryptography.X509Certificates;
+using System.Text;
+using Newtonsoft.Json.Linq;
 using RimWorld;
 using RimWorld.Planet;
 using Verse;
@@ -82,10 +87,28 @@ namespace Notifications_Archiver
 					newArchive = new MasterArchive(text, target);
 				}
 
+				if (Controller.PostSlack && Controller.SlackURL != "" && Controller.SlackChannel != "") {
+					ServicePointManager.ServerCertificateValidationCallback = CertificateValidationCallback;
+					var wc = new WebClient();
+					JObject msg = new JObject(
+							new JProperty("text", newArchive.Text),
+							new JProperty("username", "RimWorld Notify Bot"),
+							new JProperty("channel", Controller.SlackChannel.Value));
+					wc.Headers.Add(HttpRequestHeader.ContentType, "application/json;charset=UTF-8");
+					wc.Encoding=Encoding.UTF8;
+					string cont = msg.ToString();
+					Log.Message(cont);
+					wc.UploadString(Controller.SlackURL, cont);
+				}
+
 				this.archives.Add(newArchive);
 
 				MainTabWindow_Archive.mustRecacheList = true;
 			}
+		}
+
+		private bool CertificateValidationCallback(Object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors) {
+			return true;
 		}
 
 		public void QueueArchiveCleanup(MasterArchive master)

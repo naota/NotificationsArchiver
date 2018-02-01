@@ -9,6 +9,10 @@
 
 	<Archiver_ShowPrompts>Show prompts</Archiver_ShowPrompts>
 
+	<Archiver_PostSlack>Post notifications to Slack</Archiver_PostSlack>
+	<Archiver_SlackURL>Slack Webhook URL</Archiver_SlackURL>
+	<Archiver_SlackChannel>Slack channel</Archiver_SlackChannel>
+
 	<!-- Tooltips -->
 
 	<Archiver_Tooltip_ClearArchives>Delete all unpinned archives from the current save.</Archiver_Tooltip_ClearArchives>
@@ -16,6 +20,10 @@
 	<Archiver_Tooltip_UseSounds>Play sounds on various triggers, such as deleting archives.</Archiver_Tooltip_UseSounds>
 
 	<Archiver_Tooltip_ShowPrompts>Open an 'Are you sure?' dialogue on various triggers, such as deleting archives.</Archiver_Tooltip_ShowPrompts>
+
+	<Archiver_Tooltip_PostSlack>Post notifications to Slack</Archiver_Tooltip_PostSlack>
+	<Archiver_Tooltip_SlackURL>Slack Webhook URL</Archiver_Tooltip_SlackURL>
+	<Archiver_Tooltip_SlackChannel>Slack channel</Archiver_Tooltip_SlackChannel>
 
 	<Archiver_Tooltip_EnableArchiving>If disabled, new notifications will not be saved.</Archiver_Tooltip_EnableArchiving>
 
