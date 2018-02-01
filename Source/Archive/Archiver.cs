@@ -4,6 +4,7 @@ using System.Net;
 using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using System.Threading;
 using Newtonsoft.Json.Linq;
 using RimWorld;
 using RimWorld.Planet;
@@ -89,16 +90,21 @@ namespace Notifications_Archiver
 
 				if (Controller.PostSlack && Controller.SlackURL != "" && Controller.SlackChannel != "") {
 					ServicePointManager.ServerCertificateValidationCallback = CertificateValidationCallback;
-					var wc = new WebClient();
 					JObject msg = new JObject(
-							new JProperty("text", newArchive.Text),
-							new JProperty("username", "RimWorld Notify Bot"),
-							new JProperty("channel", Controller.SlackChannel.Value));
-					wc.Headers.Add(HttpRequestHeader.ContentType, "application/json;charset=UTF-8");
-					wc.Encoding=Encoding.UTF8;
+						new JProperty("text", newArchive.Text),
+						new JProperty("username", "RimWorld Notify Bot"),
+						new JProperty("channel", Controller.SlackChannel.Value));
 					string cont = msg.ToString();
 					Log.Message(cont);
-					wc.UploadString(Controller.SlackURL, cont);
+
+					var workerThread = new Thread(() => {
+						using (var wc = new WebClient()) {
+							wc.Headers.Add(HttpRequestHeader.ContentType, "application/json;charset=UTF-8");
+							wc.Encoding = Encoding.UTF8;
+							wc.UploadString(Controller.SlackURL, cont);
+						}
+					});
+					workerThread.Start();
 				}
 
 				this.archives.Add(newArchive);
